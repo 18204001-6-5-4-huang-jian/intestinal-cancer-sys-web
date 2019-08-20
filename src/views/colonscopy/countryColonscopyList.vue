@@ -79,12 +79,18 @@
                 :label="item.name">
                 </el-option>
               </el-select>
-               <el-select v-model="qc.followGroup" placeholder="随访分组" size="small" class="filter-item" clearable>
+           </div>
+           <div>
+              <el-select v-model="qc.followGroup" placeholder="随访分组" size="small" class="filter-item" clearable>
                <el-option v-for="(item,index) in followGroup" 
                :key="index" 
                :value="item.id" 
                :label="item.name">
                 </el-option>
+              </el-select>
+                <el-select v-model="qc.imagStatus" placeholder="是否上传图片" size="small" class="filter-item" clearable>
+                <el-option value="0" v-bind:key="0" label="未上传"></el-option>
+                <el-option value="1" v-bind:key="1" label="已上传"></el-option>
               </el-select>
            </div>
            <div>
@@ -386,6 +392,7 @@ import DICTIONARY from "@/utils/dictionary.js";
           "noCompleteFlag":null,
           "followState":null,
           "followGroup":null,
+          "imagStatus":null
         },
          followGroup:DICTIONARY.followGroup,
          followStatus:DICTIONARY.followStatus,
@@ -501,9 +508,10 @@ import DICTIONARY from "@/utils/dictionary.js";
             signState:this.qc.signState,
             notificationEntryStatus:this.qc.notificationEntryStatus,
             notificationIssueStatus:this.qc.notificationIssueStatus,
-            noCompleteFlag:Number(this.qc.noCompleteFlag),
+            noCompleteFlag:this.qc.noCompleteFlag,
             followState:this.qc.followState,
             followGroup:this.qc.followGroup,
+            imagStatus:this.qc.imagStatus,
             pageNo:pageNo,//当前页
             pageSize:pageSize//每页条数
           },

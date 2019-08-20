@@ -2,7 +2,7 @@
   <div slot="right" class="content-page" v-if="page_departmentList">
     <div class="content">
       <div class="filter-container">
-        <el-form :model="queryForm" :inline=true>
+        <el-form :model="queryForm" :inline="true">
           <el-input style="width: 200px;" size="small" class="filter-item" placeholder="名称" v-model="queryForm.name"
                     v-if="btnAuth.buttonDepartmentQuery"></el-input>
           <el-button class="filter-item" size="small" type="primary" icon="el-icon-search" @click="query"

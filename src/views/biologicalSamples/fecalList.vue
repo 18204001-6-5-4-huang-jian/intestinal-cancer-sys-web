@@ -378,7 +378,7 @@ export default {
     var validateSampleId = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("SID不能为空"));
-      } else if (!/^CS[0-9]{5}$/.test(value)) {
+      } else if (!/^CS-T1[0-9]{5}$/.test(value)) {
         callback(new Error("样本ID格式不正确"));
       } else {
         callback();
@@ -387,7 +387,7 @@ export default {
     var validatefrozenBoxCode = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("冷冻盒编号不能为空"));
-      } else if (!/^CS[0-9]{1}F[0-9]{3}$/.test(value)) {
+      } else if (!/^CS-T1[0-9]{1}F[0-9]{3}$/.test(value)) {
         callback(new Error("冷冻盒编号格式不正确"));
       } else {
         callback();
@@ -438,8 +438,8 @@ export default {
         tableData: []
       },
       insertForm: {
-        frozenBoxCode: "CS",
-        sampleId: "CS",
+        frozenBoxCode: "CS-T1",
+        sampleId: "CS-T1",
         collectStatus: "1",
         collectStatusDateBySql: "",
         sampleColumn: "",
@@ -662,11 +662,12 @@ export default {
     },
     getSidInfo() {
       let num = this.addForms.sid.slice(2, 3);
-      if (num == 6) {
-        num = 1;
-      }
-      this.addForms.sampleId = "CS" + num;
-      this.addForms.frozenBoxCode = "CS" + num + "F";
+      // if (num == 6) {
+      //   num = 1;
+      // }
+      
+      this.addForms.sampleId = "CS-T1" + num;
+      this.addForms.frozenBoxCode = "CS-T1" + num + "F";
     },
     getInfo(value) {
       if (this.addForms.sid) {

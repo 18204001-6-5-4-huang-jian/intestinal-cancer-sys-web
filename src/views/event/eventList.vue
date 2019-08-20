@@ -11,7 +11,7 @@
          <router-link to="/home/countryHome" v-if="$store.state.hospitalType==3">
           <el-button size="mini" class="return-home">返 回</el-button>
         </router-link>
-        <el-form :model="qc" :inline=true class="clear">
+        <el-form :model="qc" :inline="true" class="clear">
             <el-input  style="width: 200px;" size="small" class="filter-item" clearable placeholder="姓名" v-model="qc.name"></el-input>
             <el-input  style="width: 200px;" size="small" class="filter-item" clearable placeholder="SID" v-model="qc.sid">
             </el-input>

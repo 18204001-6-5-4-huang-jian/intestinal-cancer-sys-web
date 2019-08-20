@@ -1,6 +1,6 @@
 <template>
   <div slot="right" class="content-page" v-if="help_page">
-    <div>
+    <!-- <div>
       <p>表单下载</p>
       <div class="list-wrapper">
         <el-row>
@@ -60,7 +60,7 @@
           </el-col>
         </el-row>
       </div>
-    </div>
+    </div> -->
     <div style="margin-top: 30px;">
       <p>操作说明</p>
       <div class="list-wrapper1">

@@ -8,7 +8,7 @@
          <router-link to="/home/countryHome" v-if="areaFlag==3">
           <el-button size="mini" class="return-home">返 回</el-button>
         </router-link>
-        <el-form :model="qc" :inline=true class="clear">
+        <el-form :model="qc" :inline="true" class="clear">
           <div class="clearfix">
             <el-input style="width: 200px;" size="small" class="filter-item fl" placeholder="快递单号" v-model="qc.courierNumber" clearable>
             </el-input>

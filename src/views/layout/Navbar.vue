@@ -1,7 +1,7 @@
 <template>
   <div class="container" id="nav">
     <el-menu class="navbar" mode="horizontal">
-      <img src="../../assets/portrait/logo.png" alt="" class="logoImg">
+      <img src="../../assets/portrait/logo1.png" alt="" class="logoImg">
       <el-dropdown class="avatar-container" hide-on-click >
         <div class="avatar-wrapper">
           <span>欢迎您，{{loginName}}</span>

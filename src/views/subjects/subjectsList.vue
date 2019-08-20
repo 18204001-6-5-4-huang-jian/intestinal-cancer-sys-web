@@ -5,7 +5,7 @@
         <router-link to="/home/home">
           <el-button size="mini" class="return-home">返 回</el-button>
         </router-link>
-         <el-form :model="qc" :inline=true class="clear">
+         <el-form :model="qc" :inline="true" class="clear">
           <div>
             <el-input style="width: 200px;" size="small" class="filter-item" placeholder="姓名" v-model="qc.name" clearable>
             </el-input>
@@ -80,13 +80,28 @@
             :value="item.id" 
             :label="item.name"></el-option>
           </el-select>
-          <!-- <el-select v-model="qc.followViolateType" clearable placeholder="违反分类" size="small" class="filter-item">
-            <el-option v-for="(item,index) in followCategory" 
-            :key="index" 
-            :value="item.id" 
-            :label="item.name"></el-option>
-          </el-select> -->
-
+           <el-date-picker
+              clearable
+              v-model="qc.followBegin"
+              type="date"
+              size="small"
+              format="yyyy 年 MM 月 dd 日"
+              value-format="yyyy-MM-dd"
+              placeholder="计划随访开始时间(起)"
+              class="filter-item"
+              @change="changeFollowbegin">
+            </el-date-picker>
+             <el-date-picker
+              clearable
+              v-model="qc.followEnd"
+              type="date"
+              size="small"
+              format="yyyy 年 MM 月 dd 日"
+              value-format="yyyy-MM-dd"
+              placeholder="计划随访开始时间(止)"
+              class="filter-item"
+              :picker-options="pickerOptionsEnd">
+            </el-date-picker>
             <span>
               <el-popover
                 placement="bottom"
@@ -402,6 +417,7 @@ export default {
           return time.getTime() > Date.now();
         }
       },
+      pickerOptionsEnd:{},
       group: DICTIONARY.group,
       followStatus: DICTIONARY.followStatus,
       followGroup: DICTIONARY.followGroup,
@@ -457,7 +473,9 @@ export default {
         idCard: null,
         followGroup: null,
         followState: null,
-        followViolateType: null
+        followViolateType: null,
+        followBegin:'',
+        followEnd:''
       },
       props: {
         value: "loginName",
@@ -746,7 +764,16 @@ export default {
     currentPageChange(currentPage) {
       this.$store.commit("get_subjectsListPageNo", currentPage);
       this.query(currentPage, this.$store.state.subjectsListPageSize);
-    }
+    },
+    changeFollowbegin(){
+        this.qc.followEnd = '';
+        let followBegin = this.qc.followBegin;
+        this.pickerOptionsEnd = {
+           disabledDate(time) {
+              return time.getTime() < new Date(followBegin).getTime() - 86400000;
+           }
+       }
+    },
   }
 };
 </script>

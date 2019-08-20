@@ -189,6 +189,9 @@
                 </dd>
               </dl>
             </router-link> -->
+             <router-link to="/economy/economyList">
+           <el-button class="economy-btn" type="primary">卫生经济学待办任务({{economyNum}})</el-button>
+        </router-link>
        <el-tabs v-model="activeName" type="card" @tab-click="handleClick()">
         <el-tab-pane :label="`延期随访(${delay.delayPersonNum}人)`" name="1">
            <div class="home-message-item ">
@@ -509,7 +512,8 @@ import homeNews from '../components/homeNews'   //消息中心
             notIssueNotification:'',//未发放筛查结果告知书
             notIssueDna:'',//未通知粪便DNA结果
             delayPersonNum:0 //延期随访人数
-         }
+         },
+         economyNum:0
       }
     },
     mounted(){
@@ -525,12 +529,15 @@ import homeNews from '../components/homeNews'   //消息中心
           data: {},
           vueObj: this
         }).then((res) => {
-          // this.backlog = res.data.data
-         //  this.backlog.notEntryColonoscopyResult=res.data.data.notEntryColonoscopyResult;
-         //  this.backlog.notEntryPathologyResult=res.data.data.notEntryPathologyResult;
-         //  this.backlog.notEntryNotificationResult=res.data.data.notEntryNotificationResult;
           this.current = res.data.data.current;
           this.delay = res.data.data.delay;
+        })
+        $axios_http({
+          url: "/base/hospital/healthEconomics/todonum/query",
+          data: {},
+          vueObj: this
+        }).then((res) => {
+          this.economyNum = res.data.data;
         })
       },
     //新增放号
@@ -661,9 +668,14 @@ import homeNews from '../components/homeNews'   //消息中心
     width: 120px;
     margin-top: 10px;
   }
+  .economy-btn{
+    position: absolute;
+    left: 320px;
+    z-index:9999;
+  }
 </style>
 <style lang="scss">
    .el-badge.item.yellow > .el-badge__content{
-     background-color:#e6a23c !important;
+     background-color:#3CB371  !important;
   }
 </style>

@@ -37,7 +37,7 @@
               :label="item.name">
               </el-option>
             </el-select>
-             <el-select v-model="formData.followGroup" clearable placeholder="随访分组" size="small" class="filter-item" clearable>
+             <el-select v-model="formData.followGroup" placeholder="随访分组" size="small" class="filter-item" clearable>
               <el-option v-for="(item,index) in followGroup" 
               :key="index" 
               :value="item.id" 
@@ -89,9 +89,14 @@
            </el-cascader>
            </div>
             <div style="margin-top:10px;">
-           <el-button  size="small" type="primary" icon="el-icon-search" @click="query()">查询</el-button>
+           <el-button  size="small" type="primary" icon="el-icon-search" @click="query(1,$store.state.droppingsDnaNewPageSize)">查询</el-button>
            <el-button  type="primary" size="small" icon="el-icon-close"  @click="reset()">重置</el-button>
           </div>
+             <div class="table-btn-grooup">
+          <el-button size="small" type="primary" icon="el-icon-document">
+            <a :href="downloadUrl">导出EXCEL</a>
+          </el-button>
+        </div>
           <div class="table-btn-grooup">
             <el-button  size="small" type="primary" icon="el-icon-plus" @click="add()">新增</el-button>
           </div>
@@ -226,9 +231,9 @@
           </div>
           </el-col>
         </el-row>
-        <!-- 新增dialog -->
+        <!-- 新增,编辑,查看dialog -->
          <el-dialog title="" :visible.sync="dialogFormVisible" :show-close="false" width="600px" @close="handleClose">
-          <el-form ref="dialogform" :model="dialogform" :inline="false" :rules="dialogformRules">
+          <el-form style="margin-top:0px;" ref="dialogform" :model="dialogform" :inline="false" :rules="dialogformRules">
             <el-form-item label="SID:" label-width="160px" prop="sid">
               <el-input style="width:300px;" v-model="dialogform.sid" autocomplete="off" @blur="blurSid()" :disabled="disabledSid" clearable></el-input>
               <span class="vertify-span" @click.prevent="vertifySid()" :class="{'vertify-span-gray':disabledSid}">校验</span>
@@ -247,20 +252,21 @@
                   :disabled="disabled"
                   v-model="dialogform.date"
                   type="date"
-                  clearable
+                  format="yyyy-MM-dd"
                   placeholder="选择日期"
-                  style="width:300px;">
+                  style="width:300px;"
+                  clearable>
                 </el-date-picker>
              </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer" style="text-align:center;">
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button @click="handledialogFormVisible()">取 消</el-button>
             <el-button type="primary" :disabled="disabled" @click="adddialogform('dialogform')">提 交</el-button>
           </div>
         </el-dialog>
         <!-- 录入dialog -->
           <el-dialog title="" :visible.sync="dialoginputVisible" :show-close="false" width="600px">
-          <el-form ref="dialoginput" :model="dialoginput" :inline="false" :rules="dialoginputRules">
+          <el-form style="margin-top:0px;" ref="dialoginput" :model="dialoginput" :inline="false" :rules="dialoginputRules">
             <el-form-item label="SID:" label-width="160px" prop="sid">
               <el-input style="width:300px;" v-model="dialoginput.sid" autocomplete="off" disabled="disabled" clearable></el-input>
             </el-form-item>
@@ -278,14 +284,15 @@
                <el-date-picker
                   v-model="dialoginput.date"
                   type="date"
-                  clearable
+                  format="yyyy-MM-dd"
                   placeholder="选择日期"
-                   style="width:300px;">
+                  style="width:300px;"
+                  clearable>
                 </el-date-picker>
              </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer" style="text-align:center;">
-            <el-button @click="dialoginputVisible = false">取 消</el-button>
+            <el-button @click="handledialoginputVisible()">取 消</el-button>
             <el-button type="primary" @click="adddialoginput('dialoginput')">提 交</el-button>
           </div>
         </el-dialog>
@@ -299,14 +306,15 @@ export default {
     data(){
         var validateFitCode = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error('记录编码不能为空'));
-        } else if (!(/^[A-Za-z0-9]{12}$/.test(value))) {
-          callback(new Error('请输入12位数字或字母'));
+          callback(new Error('粪便编码不能为空'));
+        } else if (!(/^CS[0-9]{9}$/.test(value))) {
+          callback(new Error('输入错误：CS+年月+5位流水号，如CS190800001'));
         } else {
           callback();
         }
       };
         return{
+           downloadUrl:SERVER_NAME + '/base/hospital/stoolSample/queryExcel',
            droppings_new_page_list:false,
            btnAuth:{
 
@@ -349,8 +357,8 @@ export default {
                   { required: true, message: '请输入姓名', trigger: 'blur' },
                ],
                code:[
-                 { required: true, message: '请输入记录编码', trigger: 'blur' },
-                  {validator: validateFitCode, trigger: 'blur'}
+                 { required: true, message: '请输入粪便编码', trigger: 'blur' },
+                  {validator: validateFitCode, trigger: ['blur','change']}
                ],
                workcode:[
                   { required: true, message: '请输入发放人工作编号', trigger: 'blur' },
@@ -380,8 +388,8 @@ export default {
                   { required: true, message: '请输入姓名', trigger: 'blur' },
                ],
                code:[
-                 { required: true, message: '请输入记录编码', trigger: 'blur' },
-                  {validator: validateFitCode, trigger: 'blur'}
+                 { required: true, message: '请输入粪便编码', trigger: 'blur' },
+                  {validator: validateFitCode, trigger: ['blur','change']}
                ],
                workcode:[
                   { required: true, message: '请输入发放人工作编号', trigger: 'blur' },
@@ -577,7 +585,7 @@ export default {
           this.dialoginputVisible = true;
           this.dialoginput.sid = row.sid;
           this.dialoginput.name = row.name;
-          this.dialoginput.code = '';
+          this.dialoginput.code = 'CS';
           this.dialoginput.workcode = '';
           this.dialoginput.date = '';
           this.inputid = row.id;
@@ -601,7 +609,7 @@ export default {
                 this.dialogform.name = res.data.data.name;
                 this.dialogform.code = res.data.data.stoolCode;
                 this.dialogform.workcode = res.data.data.personCode;
-                this.dialogform.date = res.data.data.releaseDate;
+                this.dialogform.date = new Date(res.data.data.releaseDate);
             }
           })
         },
@@ -651,7 +659,7 @@ export default {
         add(){
           this.dialogform.sid = '';
           this.dialogform.name = '';
-          this.dialogform.code = '';
+          this.dialogform.code = 'CS';
           this.dialogform.workcode = '';
           this.dialogform.date = '';
           this.dialogFormVisible = true;
@@ -809,6 +817,14 @@ export default {
         },
         handleClose(){
           this.$refs.dialogform.resetFields();
+        },
+        handledialogFormVisible(){
+          this.dialogFormVisible = false;
+          this.$refs.dialogform.resetFields();
+        },
+        handledialoginputVisible(){
+          this.dialoginputVisible = false;
+          this.$refs.dialoginput.resetFields();
         }
     },
 }

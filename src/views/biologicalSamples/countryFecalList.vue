@@ -5,7 +5,7 @@
         <router-link to="/home/countryHome">
           <el-button size="mini" class="return-home">返 回</el-button>
         </router-link>
-        <el-form :model="qc" :inline=true class="clear">
+        <el-form :model="qc" :inline="true" class="clear">
           <div>
             <el-input  style="width: 200px;" size="small" class="filter-item" placeholder="姓名" v-model="qc.name"   clearable>
             </el-input>

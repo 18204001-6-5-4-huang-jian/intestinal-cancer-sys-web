@@ -1,6 +1,6 @@
-d<template>
+<template>
   <div slot="right" class="content-page" v-if="help_pages">
-    <div>
+    <!-- <div>
       <p>表单下载</p>
       <div class="list-wrapper">
         <el-row>
@@ -27,22 +27,22 @@ d<template>
             <div class="grid-content bg-purple-light"><span class="">立即下载</span></div>
           </el-col>
         </el-row>
-        <!--<el-row>-->
-          <!--<el-col :span="12">-->
-            <!--<div class="grid-content bg-purple">《结肠镜检查结果记录表》</div>-->
-          <!--</el-col>-->
-          <!--<el-col :span="12">-->
-            <!--<div class="grid-content bg-purple-light"><span class="down"><a href="/static/doc/B1.docx" target="_blank" download="结肠镜检查结果记录表">立即下载</a></span></div>-->
-          <!--</el-col>-->
-        <!--</el-row>-->
-        <!--<el-row>-->
-          <!--<el-col :span="12">-->
-            <!--<div class="grid-content bg-purple">《病理检查结果表》</div>-->
-          <!--</el-col>-->
-          <!--<el-col :span="12">-->
-            <!--<div class="grid-content bg-purple-light"><span class="down"><a href="/static/doc/B2.docx" target="_blank" download="病理检查结果表">立即下载</a></span></div>-->
-          <!--</el-col>-->
-        <!--</el-row>-->
+        <el-row>
+          <el-col :span="12">
+            <div class="grid-content bg-purple">《结肠镜检查结果记录表》</div>
+          </el-col>
+          <el-col :span="12">
+            <div class="grid-content bg-purple-light"><span class="down"><a href="/static/doc/B1.docx" target="_blank" download="结肠镜检查结果记录表">立即下载</a></span></div>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <div class="grid-content bg-purple">《病理检查结果表》</div>
+          </el-col>
+          <el-col :span="12">
+            <div class="grid-content bg-purple-light"><span class="down"><a href="/static/doc/B2.docx" target="_blank" download="病理检查结果表">立即下载</a></span></div>
+          </el-col>
+        </el-row>
         <el-row>
           <el-col :span="12">
             <div class="grid-content bg-purple">《结肠镜筛查结果告知书》</div>
@@ -60,7 +60,7 @@ d<template>
           </el-col>
         </el-row>
       </div>
-    </div>
+    </div> -->
     <div style="margin-top: 30px;">
       <p>操作说明</p>
       <div class="list-wrapper1">

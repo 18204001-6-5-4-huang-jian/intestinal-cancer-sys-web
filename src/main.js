@@ -8,6 +8,7 @@ import store from './store';
 import ElementUI from 'element-ui';
 import echarts from 'echarts';
 import moment from 'moment';
+import VueRulerTool from 'vue-ruler-tool'
 // import 'element-ui/lib/theme-default/index.css';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'normalize.css/normalize.css'; // normalize.css 样式格式化
@@ -28,7 +29,7 @@ import {
 import './assets/common/global'
 Vue.use(ElementUI);
 Vue.use(echarts);
-
+Vue.component('vue-ruler-tool', VueRulerTool)
 // register global utility filters.
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
@@ -204,7 +205,7 @@ Vue.filter('dnaCheckInformStatus', function (value) {
   }
 });
 
-//data
+//date
 Vue.filter('date', function (value) {
   if (value == null || value == '') {
     return value
@@ -349,6 +350,50 @@ Vue.filter('followGroup', function (value) {
     return 'FIT组';
   } else if (value == 3) {
     return '年度随访问卷组';
+  }
+})
+// heInsertStatus
+Vue.filter('heInsertStatus', function (value) {
+  if (value == 9) {
+    return '已提交';
+  } else if (value == 0) {
+    return '未提交';
+  } else if (value == 2) {
+    return '待录入';
+  }
+})
+Vue.filter('colonoscopyResult', function (value) {
+  if (value == 0) {
+    return '阴性';
+  } else if (value == 1) {
+    return '癌前病变';
+  } else if (value == 2) {
+    return '癌';
+  }
+})
+Vue.filter('economycolonoscopyResult', function (value) {
+  if (value == 0) {
+    return '阴性';
+  } else if (value == 1) {
+    return '阳性';
+  }
+})
+// 卫生经济学随访分组
+Vue.filter('economyFollowup', function (value) {
+  if (value == '0') {
+    return '结肠镜阳性组';
+  } else if (value == '1') {
+    return '结肠镜阴性组';
+  } else if (value == '2') {
+    return 'FIT阳性组';
+  }else if(value == '3'){
+    return 'FIT阴性组'
+  }else if(value == '4'){
+    return '高危组'
+  }else if(value == '5'){
+    return '低危-FIT阳性组'
+  }else if(value == '6'){
+    return '低危-FIT阴性组'
   }
 })
 Vue.filter('followState', function (value) {
@@ -559,7 +604,7 @@ window.$axios_http = function (obj) {
           clientStatus = 2;
         }
       } else {
-        console.log(res);
+        // console.log(res);
         // if(obj.vueObj.$router.history.current.path=='/biology/sendExpress'){   //寄出样本表单校验
         //   obj.vueObj.$store.commit('get_checkCourierNumber', false)
         // }

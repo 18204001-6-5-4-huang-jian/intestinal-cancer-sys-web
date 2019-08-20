@@ -90,6 +90,7 @@
               <el-radio label="20">《表C3-结直肠癌诊断信息摘录表》</el-radio>
               <el-radio label="21">《表C4-结直肠癌表》</el-radio>
               <el-radio label="22">《表C5-死亡证明相关组表》</el-radio>
+              <el-radio label="23">《粪便样本管理(新)》</el-radio>
             </el-radio-group>
           </el-col>
         </el-form>
@@ -166,82 +167,85 @@
           return;
         }
         if(this.qc.content=="1"){
-          name='受试者状态列表.xls'
+          name='受试者状态列表.xlsx'
           _url="/base/hospital/excel/stollnationUsersQueryExcel"
         }else if(this.qc.content=="2"){
-          name='肠镜管理列表.xls'
+          name='肠镜管理列表.xlsx'
           _url="/base/hospital/excel/queryFoStollCountryCJExcel"
         }else if(this.qc.content=="3"){
-          name='血液样本采集与处理信息表.xls'
+          name='血液样本采集与处理信息表.xlsx'
           _url="/base/hospital/excel/bloodSampleAndExpressQueryExcel"
         }
         else if(this.qc.content=="6"){
-          name='粪便潜血检验（噗噗管）发放和结果记录表.xls'
+          name='粪便潜血检验（噗噗管）发放和结果记录表.xlsx'
           _url="/base/hospital/excel/stoolFitQueryExcel"
         }
         else if(this.qc.content=="7"){
-          name='粪便DNA检测装置发放和结果记录表.xls'
+          name='粪便DNA检测装置发放和结果记录表.xlsx'
           _url="/base/hospital/excel/stoolDnaQueryExcel"
         }
         else if(this.qc.content=="8"){
-          name='筛查结果告知书发放记录列表.xls'
+          name='筛查结果告知书发放记录列表.xlsx'
           _url="/base/hospital/excel/notificationRecordQueryExcel"
         }
         else if(this.qc.content=="9"){
-          name='表A3年度信息更新表.xls'
+          name='表A3年度信息更新表.xlsx'
           _url='/base/hospital/excel/yearInfoQueryExcel'
         }
         else if(this.qc.content=='10'){
-           name='表E1受试者联系记录表.xls';
+           name='表E1受试者联系记录表.xlsx';
            _url='/base/hospital/excel/contactRecordQueryExcel'
         }
         else if(this.qc.content=='11'){
-           name='表E2受试者无应答/违反研究方案表.xls';
+           name='表E2受试者无应答/违反研究方案表.xlsx';
            _url='/base/hospital/excel/violationResearchQueryExcel'
         }
         else if(this.qc.content=="12"){
-          name='受试者资格审核表.xls'
+          name='受试者资格审核表.xlsx'
           _url="/base/hospital/excel/stoolReviewQueryExcel"
         }
         else if(this.qc.content=="13"){
-          name='联系信息与危险因素调查表.xls'
+          name='联系信息与危险因素调查表.xlsx'
           _url="/base/hospital/excel/riskFactorQueryExcel"
         }
         else if(this.qc.content=="14"){
-          name='结肠镜检查结果记录表.xls'
+          name='结肠镜检查结果记录表.xlsx'
           _url="/base/hospital/excel/stoolColonoscopyResultQueryExcel"
         }
         else if(this.qc.content=="15"){
-          name='病理检查结果表.xls'
+          name='病理检查结果表.xlsx'
           _url="/base/hospital/excel/pathologyQueryExcel"
         }
         else if(this.qc.content=="16"){
-          name='结直肠癌筛查结果告知书.xls'
+          name='结直肠癌筛查结果告知书.xlsx'
           _url="/base/hospital/excel/stoolNotificationQueryExcel"
         }
         else if(this.qc.content=="17"){
-          name='违反方案事件记录表.xls'
+          name='违反方案事件记录表.xlsx'
           _url="/base/hospital/excel/violationSchemeQueryExcel"
         }
         else if(this.qc.content == '18'){
-          name='《表C1-结直肠癌表》.xls';
+          name='《表C1-结直肠癌表》.xlsx';
           _url='/base/hospital/excel/cancerReportQueryExcel'
         }
         else if(this.qc.content == '19'){
-          name='《表C2-结直肠癌表》.xls';
+          name='《表C2-结直肠癌表》.xlsx';
           _url='/base/hospital/excel/cancerDiagnoseQueryExcel'
         }
         else if(this.qc.content == '20'){
-          name='《表C3-结直肠癌诊断信息摘录表》.xls';
+          name='《表C3-结直肠癌诊断信息摘录表》.xlsx';
           _url='/base/hospital/excel/cancerDiagnoseInformationQueryExcel'
         }
         else if(this.qc.content == '21'){
-          name='《表C4-结直肠癌表》.xls';
+          name='《表C4-结直肠癌表》.xlsx';
           _url='/base/hospital/excel/cancerTreatmentInformationQueryExcel'
         }
         else if(this.qc.content == '22'){
-          name='《表C5-死亡证明相关组表》.xls';
+          name='《表C5-死亡证明相关组表》.xlsx';
           _url='/base/hospital/excel/deathCertificateQueryExcel'
+        }else if(this.qc.content == '23'){
+          name = '粪便样本管理(新).xlsx';
+          _url = '/base/hospital/excel/stoolSampleQueryExcel'
         }
         $axios_http({
           url:_url,

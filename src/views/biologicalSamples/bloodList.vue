@@ -518,7 +518,7 @@ export default {
     var validateSampleId = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("SID不能为空"));
-      } else if (!/^CS[0-9]{5}$/.test(value)) {
+      } else if (!/^CS-T1[0-9]{5}$/.test(value)) {
         callback(new Error("样本ID格式不正确"));
       } else {
         callback();
@@ -527,7 +527,7 @@ export default {
     var validatefrozenBoxCode = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("冷冻盒编号不能为空"));
-      } else if (!/^CS[0-9]{1}[SWP]{1}[0-9]{3}$/.test(value)) {
+      } else if (!/^CS-T1[0-9]{1}[SWP]{1}[0-9]{3}$/.test(value)) {
         callback(new Error("冷冻盒编号格式不正确"));
       } else {
         callback();
@@ -1622,16 +1622,16 @@ export default {
       // 浙江2 逢6改1
       let num = "";
       num = value.substr(2, 1);
-      if (num == 6) {
-        num = 1;
-      }
-      this.insertForm.sampleId = "CS" + num;
+      // if (num == 6) {
+      //   num = 1;
+      // }
+      this.insertForm.sampleId = "CS-T1" + num;
       this.insertForm.hospitalBiologicalSampleResultPOList[0].frozenBoxCode =
-        "CS" + num + "P";
+        "CS-T1" + num + "P";
       this.insertForm.hospitalBiologicalSampleResultPOList[1].frozenBoxCode =
-        "CS" + num + "S";
+        "CS-T1" + num + "S";
       this.insertForm.hospitalBiologicalSampleResultPOList[2].frozenBoxCode =
-        "CS" + num + "W";
+        "CS-T1" + num + "W";
     },
     //查看样本弹窗
     showData(row) {
@@ -1695,10 +1695,10 @@ export default {
         } else {
           this.disabled = false;
           num = row.sid.substr(2, 1);
-          if (num == 6) {
-            num = 1;
-          }
-          this.addForm.sampleId = "CS" + num;
+          // if (num == 6) {
+          //   num = 1;
+          // }
+          this.addForm.sampleId = "CS-T1" + num;
         }
       });
       this.addForm.id = row.id;
@@ -1709,15 +1709,15 @@ export default {
       this.addForm.hospitalBiologicalSampleResultPOList[2].bloodSampleId =
         row.id;
       num = row.sid.substr(2, 1);
-      if (num == 6) {
-        num = 1;
-      }
+      // if (num == 6) {
+      //   num = 1;
+      // }
       this.addForm.hospitalBiologicalSampleResultPOList[0].frozenBoxCode =
-        "CS" + num + "P";
+        "CS-T1" + num + "P";
       this.addForm.hospitalBiologicalSampleResultPOList[1].frozenBoxCode =
-        "CS" + num + "S";
+        "CS-T1" + num + "S";
       this.addForm.hospitalBiologicalSampleResultPOList[2].frozenBoxCode =
-        "CS" + num + "W";
+        "CS-T1" + num + "W";
     },
     //一键处理弹窗
     openQuitDialog() {
@@ -1767,11 +1767,11 @@ export default {
     },
     getSidInfo() {
       let num = this.addForms.sid.slice(2, 3);
-      if (num == 6) {
-        num = 1;
-      }
-      this.addForms.sampleId = "CS" + num;
-      this.addForms.frozenBoxCode = "CS" + num;
+      // if (num == 6) {
+      //   num = 1;
+      // }
+      this.addForms.sampleId = "CS-T1" + num;
+      this.addForms.frozenBoxCode = "CS-T1" + num;
       this.getSidInfo1(this.addForms.sampleType);
     },
     handleClose1(done) {
@@ -1796,10 +1796,10 @@ export default {
     },
     getSidInfo1(value) {
       let num = this.addForms.sid.slice(2, 3);
-      if (num == 6) {
-        num = 1;
-      }
-      this.addForms.frozenBoxCode = "CS" + num;
+      // if (num == 6) {
+      //   num = 1;
+      // }
+      this.addForms.frozenBoxCode = "CS-T1" + num;
       this.sampleColumnOptions = this.checkTable;
       if (value == "S") {
         this.addForms.frozenBoxCode += "S";

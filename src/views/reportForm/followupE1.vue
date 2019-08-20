@@ -144,7 +144,7 @@
             </div>
              <div class="btns" style="text-align:center;">
                  <el-button @click="$router.go(-1)" v-if="$route.query.flag == 1">取消</el-button>
-                 <el-button type="primary" @click="saveRecord(1)" v-if="$route.query.flag == 1 && $route.query.action != 'edit'">暂时保存</el-button>
+                 <el-button type="success" @click="saveRecord(1)" v-if="$route.query.flag == 1 && $route.query.action != 'edit'">暂时保存</el-button>
                  <el-button type="primary" @click="save(2)" v-if="$route.query.flag == 1">提交</el-button>
              </div>
          </div>

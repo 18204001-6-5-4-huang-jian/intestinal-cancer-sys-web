@@ -2,7 +2,7 @@
     <div slot="right" class="content-page" v-if="userPageMain">
         <div class="content">
         	<div class="filter-container">
-	        	<el-form :model="qc" :inline=true>
+	        	<el-form :model="qc" :inline="true">
 			      <el-input  style="width: 200px;" size="small" class="filter-item" placeholder="用户昵称" v-model="qc.nickName" v-if="btnAuth.buttonUserQuery">
 			      </el-input>
 			      <el-input  style="width: 200px;" size="small" class="filter-item" placeholder="登录名" v-model="qc.loginName" v-if="btnAuth.buttonUserQuery">

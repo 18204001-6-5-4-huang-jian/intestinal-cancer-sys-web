@@ -15,6 +15,9 @@
             </el-row>
               <el-row style="margin-top:20px">
                   <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+                    <div style="text-align:right">
+                      <img src="../../assets/img/fullscreen.png" class="fullscreen-img" alt="" @click="fullscreen()"/>
+                    </div>
                     <el-tab-pane label="A组" name="1">
                         <organizationChartA :option="option"></organizationChartA>
                     </el-tab-pane>
@@ -335,7 +338,13 @@ export default {
                   nodeWidth: 100
                 }],
                 tooltip: {
-                  outside: true
+                  outside: true,
+                  style:{
+                    fontSize:'18px'
+                  },
+                  // formatter:function(){
+                    // console.log(this)
+                    // }
                 },
                 exporting: {
                     enabled:false
@@ -467,7 +476,7 @@ export default {
                   {
                      id:'已发放FIT200',
                      title: '',
-                     name: '已发放FIT200',
+                     name: '已发放FIT',
                      description:res.data.data[0].data14,
                      height:'80',
                      offset:-150
@@ -582,7 +591,7 @@ export default {
                   {
                     id:'已发放FIT2001',
                     title: '',
-                    name: '已发放FIT200',
+                    name: '已发放FIT',
                     description:res.data.data[0].data28,
                     height:'80',
                     offset:30
@@ -696,7 +705,7 @@ export default {
                   {
                     id:'已发放FIT2002',
                     title: '',
-                    name: '已发放FIT200',
+                    name: '已发放FIT',
                     description:res.data.data[0].data42,
                     height:'80',
                     offset:200
@@ -750,7 +759,7 @@ export default {
                   {
                     id:'结肠镜已预约2',
                     title: '',
-                    name: '结肠镜已预约2',
+                    name: '结肠镜已预约',
                     description:res.data.data[0].data46,
                     height:'80',
                     offset:198
@@ -809,7 +818,13 @@ export default {
                   nodeWidth: 90
                 }],
                 tooltip: {
-                  outside: true
+                  outside: true,
+                  style:{
+                    fontSize:'18px'
+                  },
+                   // formatter:function(){
+                    // console.log(this)
+                    // }
                 },
                 exporting: {
                     enabled:false
@@ -961,7 +976,13 @@ export default {
                   nodeWidth: 100
                 }],
                 tooltip: {
-                  outside: true
+                  outside: true,
+                  style:{
+                    fontSize:'18px'
+                  },
+                   // formatter:function(){
+                    // console.log(this)
+                    // }
                 },
                 exporting: {
                     enabled:false
@@ -1093,7 +1114,7 @@ export default {
                   {
                      id:'已发放FIT200',
                      title: '',
-                     name: '已发放FIT200',
+                     name: '已发放FIT',
                      description:res.data.data[0].data14,
                      height:'80',
                      offset:-150
@@ -1208,7 +1229,7 @@ export default {
                   {
                     id:'已发放FIT2001',
                     title: '',
-                    name: '已发放FIT200',
+                    name: '已发放FIT',
                     description:res.data.data[0].data28,
                     height:'80',
                     offset:30
@@ -1322,7 +1343,7 @@ export default {
                   {
                     id:'已发放FIT2002',
                     title: '',
-                    name: '已发放FIT200',
+                    name: '已发放FIT',
                     description:res.data.data[0].data42,
                     height:'80',
                     offset:200
@@ -1376,7 +1397,7 @@ export default {
                   {
                     id:'结肠镜已预约2',
                     title: '',
-                    name: '结肠镜已预约2',
+                    name: '结肠镜已预约',
                     description:res.data.data[0].data46,
                     height:'80',
                     offset:198
@@ -1435,7 +1456,13 @@ export default {
                   nodeWidth: 100
                 }],
                 tooltip: {
-                  outside: true
+                  outside: true,
+                  style:{
+                    fontSize:'18px'
+                  },
+                   // formatter:function(){
+                    // console.log(this)
+                    // }
                 },
                 exporting: {
                     enabled:false
@@ -1454,6 +1481,10 @@ export default {
           }else if(this.activeName == '1'){
             this.getDataA()
           }
+      },
+      fullscreen(){
+         localStorage.setItem('option',JSON.stringify(this.option));
+         this.$router.push('/fullscreen');
       }
     },
 }
@@ -1471,6 +1502,11 @@ export default {
   }
   .return-home{
     margin-left:14px;
+  }
+  .fullscreen-img{
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
   }
 </style>
 

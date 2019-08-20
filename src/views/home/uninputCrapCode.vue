@@ -176,20 +176,20 @@
           <!-- 录入dialog -->
           <el-dialog title="" :visible.sync="dialoginputVisible" :show-close="false" width="600px">
           <el-form ref="dialoginput" :model="dialoginput" :inline="false" :rules="dialoginputRules">
-            <el-form-item label="SID:" label-width="100px" prop="sid">
+            <el-form-item label="SID:" label-width="160px" prop="sid">
               <el-input style="width:300px;" v-model="dialoginput.sid" autocomplete="off" disabled="disabled"></el-input>
             </el-form-item>
-            <el-form-item label="姓名:" label-width="100px" prop="name">
+            <el-form-item label="姓名:" label-width="160px" prop="name">
               <el-input style="width:300px;" v-model="dialoginput.name" autocomplete="off" disabled="disabled"></el-input>
             </el-form-item>
-             <el-form-item label="记录编码:" label-width="100px" prop="code">
+             <el-form-item label="粪便编码:" label-width="160px" prop="code">
               <el-input style="width:300px;" v-model="dialoginput.code" autocomplete="off" @blur="blurdialoginput()"></el-input><br>
               <span style="color:red;" v-if="showredspan">该编码已被占用</span>
             </el-form-item>
-            <el-form-item label="发放经手人工作编码:" prop="workcode">
+            <el-form-item label="发放经手人工作编码:" label-width="160px" prop="workcode">
               <el-input style="width:300px;" v-model="dialoginput.workcode" autocomplete="off"></el-input>
             </el-form-item>
-             <el-form-item label="发放日期:" label-width="100px" prop="date">
+             <el-form-item label="发放日期:" label-width="160px" prop="date">
                <el-date-picker
                   v-model="dialoginput.date"
                   type="date"
@@ -197,8 +197,8 @@
                 </el-date-picker>
              </el-form-item>
           </el-form>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="dialoginputVisible = false">取 消</el-button>
+          <div slot="footer" class="dialog-footer" style="text-align:center;">
+            <el-button @click="handledialoginputVisible()">取 消</el-button>
             <el-button type="primary" @click="add('dialoginput')">提 交</el-button>
           </div>
         </el-dialog>
@@ -212,9 +212,9 @@ export default {
     data(){
         var validateFitCode = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error('DNA编号不能为空'));
-        } else if (!(/^[A-Za-z0-9]{12}$/.test(value))) {
-          callback(new Error('请输入12位数字或字母'));
+          callback(new Error('粪便编码不能为空'));
+        } else if (!(/^CS[0-9]{9}$/.test(value))) {
+          callback(new Error('输入错误：CS+年月+5位流水号，如CS190800001'));
         } else {
           callback();
         }
@@ -258,7 +258,7 @@ export default {
                   { required: true, message: '请输入姓名', trigger: 'blur' },
                ],
                code:[
-                 { required: true, message: '请输入记录编码', trigger: 'blur' },
+                 { required: true, message: '请输入粪便编码', trigger: 'blur' },
                  {validator: validateFitCode, trigger: 'blur'}
                ],
                workcode:[
@@ -362,6 +362,7 @@ export default {
           this.dialoginputVisible = true;
           this.dialoginput.sid = row.sid;
           this.dialoginput.name = row.name;
+          this.dialoginput.code = "CS";
           this.inputid = row.id;
         },
         noprovide(row){
@@ -430,6 +431,10 @@ export default {
                       })
                }
          })
+        },
+        handledialoginputVisible(){
+          this.dialoginputVisible = false;
+          this.$refs.dialoginput.resetFields();
         }
     },
 }

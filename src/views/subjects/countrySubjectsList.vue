@@ -81,12 +81,28 @@
             :value="item.id" 
             :label="item.name"></el-option>
           </el-select>
-          <!-- <el-select v-model="qc.followViolateType" clearable placeholder="违反分类" size="small" class="filter-item">
-            <el-option v-for="(item,index) in followCategory" 
-            :key="index" 
-            :value="item.id" 
-            :label="item.name"></el-option>
-          </el-select> -->
+            <el-date-picker
+              clearable
+              v-model="qc.followBegin"
+              type="date"
+              size="small"
+              format="yyyy 年 MM 月 dd 日"
+              value-format="yyyy-MM-dd"
+              placeholder="计划随访开始时间(起)"
+              class="filter-item"
+              @change="changeFollowbegin">
+            </el-date-picker>
+             <el-date-picker
+              clearable
+              v-model="qc.followEnd"
+              type="date"
+              size="small"
+              format="yyyy 年 MM 月 dd 日"
+              value-format="yyyy-MM-dd"
+              placeholder="计划随访开始时间(止)"
+              class="filter-item"
+              :picker-options="pickerOptionsEnd">
+            </el-date-picker>
             <span>
               <el-popover
                 placement="bottom"
@@ -378,6 +394,7 @@ import DICTIONARY from "@/utils/dictionary.js";
 export default {
   data() {
     return {
+      pickerOptionsEnd:{},
       group: DICTIONARY.group,
       followStatus: DICTIONARY.followStatus,
       followGroup: DICTIONARY.followGroup,
@@ -407,7 +424,6 @@ export default {
         loginName: null,
         sortParameter: null,
         sortRule: null,
-
         resultStatus: null,
         examinationStatus: null,
         finishedStatus: null,
@@ -420,7 +436,9 @@ export default {
         idCard: null,
         followGroup: null,
         followState: null,
-        followViolateType: null
+        followViolateType: null,
+        followBegin:'',
+        followEnd:''
       },
       //查询结果
       queryResult: {
@@ -536,7 +554,8 @@ export default {
           followGroup: this.qc.followGroup,
           followState: this.qc.followState,
           followViolateType: this.qc.followViolateType,
-          //            violationPlanStatusCy:this.qc.violationPlanStatusCy,
+          followBegin:this.qc.followBegin,
+          followEnd:this.qc.followEnd,
           pageNo: pageNo, //当前页
           pageSize: pageSize //每页条数
         },
@@ -582,7 +601,16 @@ export default {
     currentPageChange(currentPage) {
       this.$store.commit("get_countrySubjectsListPageNo", currentPage);
       this.query(currentPage, this.$store.state.countrySubjectsListPageSize);
-    }
+    },
+    changeFollowbegin(){
+        this.qc.followEnd = '';
+        let followBegin = this.qc.followBegin;
+        this.pickerOptionsEnd = {
+           disabledDate(time) {
+              return time.getTime() < new Date(followBegin).getTime() - 86400000;
+           }
+       }
+    },
   }
 };
 </script>

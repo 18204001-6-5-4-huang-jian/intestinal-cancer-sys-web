@@ -88,7 +88,6 @@
             <el-button  size="small" type="primary" icon="el-icon-search" @click="query(1,$store.state.areaDnaManagementPageSize)" >查询</el-button>
             <el-button  type="primary" size="small" icon="el-icon-close" @click="reset" >重置</el-button>
           </div>
-
         </el-form>
         <div class="table-btn-grooup">
           <el-button  type="primary" size="small" icon="el-icon-plus" @click="addFormDialog = true">新增</el-button>
@@ -642,6 +641,23 @@ export default {
     this.$store.state.areaDnaManagementPageNo = 1;
     this.$store.state.areaDnaManagementPageSize = 10;
   },
+  filters: {
+      formatDate: function (value) {
+        let date = new Date(value);
+        let y = date.getFullYear();
+        let MM = date.getMonth() + 1;
+        MM = MM < 10 ? ('0' + MM) : MM;
+        let d = date.getDate();
+        d = d < 10 ? ('0' + d) : d;
+        let h = date.getHours();
+        h = h < 10 ? ('0' + h) : h;
+        let m = date.getMinutes();
+        m = m < 10 ? ('0' + m) : m;
+        let s = date.getSeconds();
+        s = s < 10 ? ('0' + s) : s;
+        return y + '-' + MM + '-' + d;
+      }
+    },
   methods: {
     updateCourierResult(id) {
       this.id = id;
@@ -797,7 +813,7 @@ export default {
         },
         vueObj: this
       }).then(res => {
-        this.$store.commit("get_areaDnaManagementPageNo", pageNo);
+        this.$store.commit("get_areaDnaManagementPageNo",pageNo);
         this.queryResult.tableData = res.data.data;
         this.queryResult.totalPageCount = res.data.pageInfo.totalPageCount; //获取总共多少页
         this.queryResult.totalRowCount = res.data.pageInfo.totalRowCount; //获取总共条数

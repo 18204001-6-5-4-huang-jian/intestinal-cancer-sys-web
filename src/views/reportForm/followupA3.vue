@@ -209,7 +209,7 @@
                   </el-date-picker>
                     </el-form-item>
                   </el-row>
-                   <el-row>
+                   <el-row v-if="formInline1.item9 == 1">
                       <p class="pTitle"><span class="requiredLabel"></span>&nbsp;5.死亡信息来源: (多项选择)</p>
                        <el-form-item label="">
                            <el-checkbox-group v-model="formInline1.item10" :disabled="$route.query.flag==0">

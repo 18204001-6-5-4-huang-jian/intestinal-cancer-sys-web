@@ -113,7 +113,7 @@
                       </th>
                       <th width="100" rowspan="2">操作</th>
                     </tr>
-                    <div v-for="(x,index) in hospitalCancerReportMessagePOS">
+                    <div v-for="(x,index) in hospitalCancerReportMessagePOS" :key="index">
                       <el-form :inline="true" :model="x" class="demo-form-inline" :ref="'formInlinelist'+index" style="display:table-row-group;" :rules="formInlinelist">
                         <tr>
                             <td width="280">

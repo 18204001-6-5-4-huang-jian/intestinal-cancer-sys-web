@@ -750,7 +750,7 @@ export default {
       };
       axios
         .post(
-          SERVER_NAME + "/base/hospital/deathCertificateList/fileUpload",
+          SERVER_NAME + "/zuul/base/hospital/deathCertificateList/fileUpload",
           this.formParamsTable,
           config
         )

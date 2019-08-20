@@ -12,7 +12,7 @@
          <router-link to="/home/countryHome" v-if="areaFlag==3">
           <el-button size="mini" class="return-home">返 回</el-button>
         </router-link>
-        <el-form :model="qc" :inline=true class="clear">
+        <el-form :model="qc" :inline="true" class="clear">
           <div>
             <el-input  style="width: 200px;" size="small" class="filter-item" placeholder="SID" v-model="qc.sid">
             </el-input>

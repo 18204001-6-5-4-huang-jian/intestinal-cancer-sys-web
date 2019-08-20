@@ -247,11 +247,9 @@
     left: 35px;
   }
   .login-container {
-
-
     height: 100vh;
-    /*background-color: #2d3a4b;*/
-    background-image: url(../../assets/img/login_bg.jpg);
+    // background-image: url(../../assets/img/login_bg.jpg);
+     background-image: url(../../assets/img/login_bg1.jpeg);
     background-position-x: 66%;
     input:-webkit-autofill {
       -webkit-box-shadow: 0 0 0px 1000px white inset !important;

@@ -184,8 +184,15 @@ const followupA3 = _import('reportForm/followupA3')
 const followupE1 = _import('reportForm/followupE1')
 const followupE2 = _import('reportForm/followupE2')
 
+// 全屏
+const Fullscreen  = _import('fullscreen/fullscreen')
+
 // 粪便样本管理（新）
 const droppingsDnaNew = _import('Droppingsdnanew/droppingsdnanew');
+// 卫生经济学
+const economyList = _import('economy/economyList');
+const economyStatistics = _import('economy/economyStatistics');
+const economyForm = _import('economy/economyForm');
 Vue.use(Router);
 
 export const constantRouterMap = [
@@ -1001,6 +1008,41 @@ export const constantRouterMap = [
         component:droppingsDnaNew,
         name:'粪便样本管理（新）',
         meta:{requireAuth:'droppings_new_page_list'}
+      }
+    ]
+  },
+  //fullscreen
+  {
+    path: '/fullscreen',
+    component: Fullscreen,
+    name: '图表全屏',
+    meta: {requireAuth: 'fullscreen_page'}
+  },
+  // 卫生经济学
+  {
+    path: '/economy',
+    component: Layout,
+    redirect: '/',
+    name: '卫生经济学',
+    icon: 'zujian',
+    children:[
+      {
+        path:'economyList',
+        component:economyList,
+        name:'卫生经济学列表',
+        meta:{requireAuth:'economyList_page'}
+      },
+      {
+        path:'economyStatistics',
+        component:economyStatistics,
+        name:'卫生经济学统计',
+        meta:{requireAuth:'economyStatistics_page'}
+      },
+      {
+        path:'economyForm',
+        component:economyForm,
+        name:'卫生经济学表单',
+        meta:{requireAuth:'economyForm_page'}
       }
     ]
   }

@@ -1,8 +1,8 @@
+var webpack = require('webpack');
 var path = require('path');
 var utils = require('./utils');
 var config = require('../config');
 var vueLoaderConfig = require('./vue-loader.conf');
-
 function resolve(dir) {
     return path.join(__dirname, '..', dir)
 }
@@ -36,7 +36,7 @@ module.exports = {
         }
     },
     externals: {
-        jquery: 'jQuery'
+        
     },
     module: {
         rules: [
@@ -81,4 +81,11 @@ module.exports = {
     // sassLoader: {
     //     data:  path.join(__dirname, '../src/styles/index.scss')
     // },
+    plugins:[
+        new webpack.ProvidePlugin({ 
+            $:"jquery", 
+            jQuery:"jquery", 
+           "windows.jQuery":"jquery"
+        }) 
+    ]
 }

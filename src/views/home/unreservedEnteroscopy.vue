@@ -171,7 +171,7 @@
           >
             <template slot-scope="scope">
               <el-button type="text" class="btnStyle" size="small" title="立即预约" v-if="btnAuth.unreservedEnteroscopy_add_btn" @click="getServerInfo(scope.row.colonoscopyRecordId,scope.row.sid)">立即预约</el-button>
-              <el-button type="text" class="btnStyle" size="small" title="已预约" v-if="btnAuth.unreservedEnteroscopy_add_btn && scope.row.dept_code!='anhui'" @click="openBooking(scope.row.colonoscopyRecordId,scope.row.sid)">已预约</el-button>
+              <!-- <el-button type="text" class="btnStyle" size="small" title="已预约" v-if="btnAuth.unreservedEnteroscopy_add_btn && scope.row.dept_code!='anhui'" @click="openBooking(scope.row.colonoscopyRecordId,scope.row.sid)">已预约</el-button> -->
             </template>
           </el-table-column>
         </el-table>

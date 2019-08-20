@@ -156,7 +156,7 @@
                 placeholder="结果日期">
               </el-date-picker>
             </el-form-item>
-            <el-form-item  :label-width="formLabelWidth">
+            <el-form-item  :label-width="formLabelWidth" prop="resultStatus">
               <el-radio v-model="insertForm.resultStatus" label="1">有结果</el-radio>
               <el-radio v-model="insertForm.resultStatus" label="2">无结果</el-radio>
             </el-form-item>
@@ -175,6 +175,26 @@
             <el-form-item label="请说明原因" :label-width="formLabelWidth" v-if="insertForm.resultStatus==2">
               <el-input v-model="insertForm.noResonResult" auto-complete="off" class="lineWidth"></el-input>
             </el-form-item>
+            <!-- 上传文件 -->
+                <el-form-item label="上传文件" :label-width="formLabelWidth">
+                <el-upload
+                  class="uploadComponent"
+                  ref="upload"
+                  :action="uploadUrl()"
+                  :before-upload="beforeAvatarUpload"
+                  :on-preview="handlePreview"
+                  :on-success="handleAvatarSuccess"
+                  :on-remove="handleRemove"
+                  :on-change="handleChange"
+                  :limit="1"
+                  :with-credentials="true"
+                  :file-list="fileList"
+                  :auto-upload="false"
+                  accept='image/*'>
+                  <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                  <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">确定上传</el-button>
+                </el-upload>
+              </el-form-item>
             <div class="dialog-footer">
               <el-button size="small" @click="inputResult('insertForm')" type="primary">确 定</el-button>
               <el-button size="small" @click="inputResultDialog=false">取 消</el-button>
@@ -206,6 +226,7 @@
 
 <script>
 import DICTIONARY from "@/utils/dictionary.js";
+let loading;
   export default {
     name: 'Right',
     data () {
@@ -295,11 +316,19 @@ import DICTIONARY from "@/utils/dictionary.js";
             {required:true,message:'必填',trigger:'blur'},
             {min:1,max:32,message:'长度在1到32个字符',trigger:'blur'}
           ],
+          resultStatus:[
+            {required:true,message:'必选',trigger:'change'},
+          ],
           inTenMin:[
             {required:true,message:'必选',trigger:'change'},
           ]
         },
-
+        // 上传图片
+        //  fileList: [{name: '', url: ''}],
+         fileList:[],
+         imgSrc:'',  //图片上传地址
+         pathUrl:null,  //查看图片路径
+         changeImg:false,   //是否选择了图片
       }
     },
      created(){
@@ -310,10 +339,10 @@ import DICTIONARY from "@/utils/dictionary.js";
     },
     mounted(){
       this.$store.commit('LOGOUT_USER');
-
       let obj = this.checkPageAuth(this,"uncompletedFITResult_page",this.btnAuth);
       this.query(this.$store.state.uncompletedFITResultPageNo,this.$store.state.uncompletedFITResultPageSize);
-    },
+      this.getToday()
+   },
      beforeDestroy(){
       this.$store.state.uncompletedFITResultPageNo=1;
       this.$store.state.uncompletedFITResultPageSize=10;
@@ -322,6 +351,22 @@ import DICTIONARY from "@/utils/dictionary.js";
       //获取选中区
       getQcId(value){
         this.qc.loginName =value[0]
+      },
+      //获取今天日期
+      getToday(){
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+          month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+          strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        this.insertForm.resultDate = currentdate
       },
       //查询
       query(pageNo,pageSize){
@@ -368,7 +413,8 @@ import DICTIONARY from "@/utils/dictionary.js";
                 upLineValue:this.insertForm.upLineValue,
                 downLineValue:this.insertForm.downLineValue,
                 noResonResult:this.insertForm.noResonResult,
-                inTenMin:this.insertForm.inTenMin
+                inTenMin:this.insertForm.inTenMin,
+                pathUrl:this.pathUrl
               },
               vueObj:this
             }).then((res)=>{
@@ -379,6 +425,7 @@ import DICTIONARY from "@/utils/dictionary.js";
               this.inputResultDialog=false;
               this.inputResultPrompt=true;
               this.resultInfo=res.data.data.result;
+              this.fileList= [{name: '', url: ''}];
               console.log(this.resultInfo)
             })
           } else {
@@ -455,8 +502,55 @@ import DICTIONARY from "@/utils/dictionary.js";
         //this.queryResult.pageNo = currentPage
         this.$store.commit('get_uncompletedFITResultPageNo',currentPage)
         this.query(currentPage,this.$store.state.uncompletedFITResultPageSize);
+      },
+      handlePreview(file) {
+         console.log(file);
+      },
+      // 上传
+      uploadUrl(){
+          return SERVER_NAME+"/base/fit/imgUpload"
+      },
+      handleChange(file,fileList){
+        this.imgSrc = file.url;
+        this.changeImg = true;   //是否选择了图片
+      },
+      beforeAvatarUpload(file){
+         const isLt2M = file.size / 1024 / 1024 < 100
+          if(!isLt2M) {
+            this.$message({
+              message: '上传文件大小不能超过 100MB!',
+              type: 'warning'
+            });
+            return false;
+          }else{
+            loading = this.$loading({
+              lock: true,
+              text: '图片拼命上传中...',
+              spinner: 'el-icon-loading',
+              background: 'rgba(255, 255, 255, 0.5)'
+            });
+          }
+      },
+      handleAvatarSuccess(res, file,fileList) {
+         loading.close();
+         this.$message({
+              message: '图片上传成功',
+              type: 'success'
+            });
+          this.pathUrl=res.data.filePath;
+          this.fileList = fileList;
+      },
+      handleRemove(file, fileList) {
+        this.fileList =  fileList;
+        this.imgSrc='';
+        this.pathUrl=null;
+        this.changeImg=false;   //是否选择了图片
+      },
+      submitUpload(){
+          this.$refs.upload.submit();
       }
-    }}
+    }
+}
 
 </script>
 

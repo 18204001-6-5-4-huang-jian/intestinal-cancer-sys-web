@@ -130,7 +130,7 @@
                       <th width="191" rowspan="2">完成日期</th>
                       <th width="100" rowspan="2">操作</th>
                     </tr>
-                    <div v-for="(x,index) in formInline.hospitalCancerSurgicalOperationVos">
+                    <div v-for="(x,index) in formInline.hospitalCancerSurgicalOperationVos" :key="index">
                       <el-form :inline="true" :model="x" class="demo-form-inline" :ref="'formInlinelistFirst'+index" style="display:table-row-group;" :rules="formInlinelistFirst">
                         <tr>
                             <td width="280">

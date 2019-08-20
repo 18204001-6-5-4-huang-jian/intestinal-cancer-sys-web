@@ -170,6 +170,10 @@ const store = new Vuex.Store({
     // 粪便样本管理（新）
     droppingsDnaNewPageNo:1,
     droppingsDnaNewPageSize:10,
+    
+    // 卫生经济学
+    economyPageNo:1,
+    economyPageSize:10,
 
     regionOptions:[],
      //肠镜检查状态
@@ -604,7 +608,13 @@ const store = new Vuex.Store({
     },
     get_droppingsDnaNewPageSize(state,data){
        state.droppingsDnaNewPageSize = data;
-    }
+    },
+    get_economyPageNo(state,data){
+      state.economyPageNo = data;
+    },
+    get_economyPageSize(state,data){
+      state.economyPageSize = data;
+    },
   },
   modules: {
     app,

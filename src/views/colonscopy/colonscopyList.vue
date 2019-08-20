@@ -330,9 +330,9 @@
               <el-button type="text" size="small" v-if="btnAuth.colonscopyList_EXCEL_btn&& scope.row.reserveStatus == '1' "
                          @click="getServerInfo(scope.row.id,scope.row.sid)">立即预约
               </el-button>
-              <el-button type="text" size="small" v-if="btnAuth.colonscopyList_EXCEL_btn&& scope.row.reserveStatus == '1' && scope.row.dept_code!='anhui'"
+              <!-- <el-button type="text" size="small" v-if="btnAuth.colonscopyList_EXCEL_btn&& scope.row.reserveStatus == '1' && scope.row.dept_code!='anhui'"
                          @click="openBooking(scope.row.id,scope.row.sid)">已预约
-              </el-button>
+              </el-button> -->
               <el-button type="text" size="small" v-if="btnAuth.colonscopyList_EXCEL_btn && scope.row.cancelBookingState == '2'" @click="cancelBooking(scope.row)">取消预约</el-button>
               <!--<el-button type="text" v-if="btnAuth.colonscopyList_EXCEL_btn">返回代办</el-button>-->
               <router-link :to="{path:'colonscopyDetailHN',query:{id:scope.row.id}}" v-if="scope.row.dept_code=='hunan'">

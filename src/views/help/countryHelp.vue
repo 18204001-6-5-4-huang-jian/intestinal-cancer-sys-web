@@ -1,6 +1,6 @@
 <template>
   <div slot="right" class="content-page" v-if="countryHelp_page">
-    <div>
+    <!-- <div>
       <p>表单下载</p>
       <div class="list-wrapper">
         <el-row>
@@ -60,7 +60,7 @@
           </el-col>
         </el-row>
       </div>
-    </div>
+    </div> -->
     <div style="margin-top: 30px;">
       <p>操作说明</p>
       <div class="list-wrapper1">
@@ -69,7 +69,7 @@
             <div class="grid-content bg-purple">《中国人群结直肠癌筛查随机对照试验信息管理平台用户使用手册（国家医院）》</div>
           </el-col>
           <el-col :span="6">
-            <div class="grid-content bg-purple-light"><span class="down"><a :href="serverName + '/base/dnafile/downFile?filePath=/static/doc/country.pdf'" target="_blank" download="国家手册">立即下载</a></span></div>
+            <div class="grid-content bg-purple-light"><span class="down"><a :href="serverName + '/base/dnafile/downFile?filePath=/static/doc/country.zip'" target="_blank" download="国家手册">立即下载</a></span></div>
           </el-col>
         </el-row>
       </div>

@@ -71,13 +71,19 @@
                 :label="item.name">
                 </el-option>
               </el-select>
-               <el-select v-model="qc.followGroup" placeholder="随访分组" size="small" class="filter-item" clearable>
+            <el-select v-model="qc.followGroup" placeholder="随访分组" size="small" class="filter-item" clearable>
                <el-option v-for="(item,index) in followGroup" 
                :key="index" 
                :value="item.id" 
                :label="item.name">
                 </el-option>
               </el-select>
+           </div>
+           <div>
+            <el-select v-model="qc.imagStatus" placeholder="是否上传图片" size="small" class="filter-item" clearable>
+            <el-option value="0" v-bind:key="0" label="未上传"></el-option>
+            <el-option value="1" v-bind:key="1" label="已上传"></el-option>
+          </el-select>
            </div>
            <div>
              <el-button size="small" type="primary" icon="el-icon-search" @click="query(1,$store.state.regionColonscopyListPageSize)">查询</el-button>
@@ -576,6 +582,7 @@ let loading;
           "noCompleteFlag":null,
           "followState":null,
           "followGroup":null,
+          "imagStatus":null
         },
          followGroup:DICTIONARY.followGroup,
          followStatus:DICTIONARY.followStatus,
@@ -942,9 +949,10 @@ let loading;
             communityDeptId:this.qc.communityDeptId,
             loginName:this.qc.loginName,
             notificationIssueStatus:this.qc.notificationIssueStatus,
-            noCompleteFlag:Number(this.qc.noCompleteFlag),
+            noCompleteFlag:this.qc.noCompleteFlag,
             followGroup:this.qc.followGroup,
             followState:this.qc.followState,
+            imagStatus:this.qc.imagStatus,
             pageNo:pageNo,//当前页
             pageSize:pageSize//每页条数
           },
